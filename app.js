@@ -8,7 +8,7 @@ document.getElementById("submit").onclick = apiCall;
 // Define the apiCall function
 function apiCall() {
   // Reset city variable each time to avoid concatenation issues
-  let city = "&q=" + document.getElementById("user-input").value;
+  let city = "&q=" + document.getElementById("user-input").value.toLowerCase();
 
   fetch(apiUrl + apiKey + city)
     .then(response => {
@@ -17,6 +17,7 @@ function apiCall() {
         if (response.status == 400) {
           throw new Error("Bad request");
         } else if (response.status == 404) {
+          alert("Unfound Country/City \n Try again!");
           throw new Error("Data not found");
         } else if (response.status == 500) {
           throw new Error("Server Error!");
@@ -30,9 +31,18 @@ function apiCall() {
     .then(data => {
       const temperature = data.current.temp_c;
       const description = data.current.condition.text;
+      const conditionIcon = data.current.condition.icon;
       const location = data.location.name;
-      outputElement.innerHTML = `<p>Temperature in ${location}: ${temperature}°C</p>
-                                 <p>Weather: ${description}</p>`;
+      const humidity = data.current.humidity;
+      const windSpeed = data.current.wind_kph;
+
+
+      outputElement.innerHTML = `<p>Temperature in <b>${location}</b>: <b>${temperature}</b>°C</p>
+                                 <p>Humidity: <b>${humidity}</b> %</p>
+                                 <p>Wind speed: <b>${windSpeed}</b> k/h</p>
+                                 <p class="icon-text">Weather:</p>
+                                 <p><b>${description}</b></p> 
+                                 <div class="centered-container"><p class="icon-text"><img src="https:${conditionIcon}" alt="Weather Icon"></p></div>`;
     })
     .catch(error => {
       console.error('Error:', error);

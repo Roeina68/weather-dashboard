@@ -10,15 +10,18 @@
   </head>
   <body>
     <main>
-      <h1>Live Weather Report</h1>
+      <div class="centered-content">
+        <img id="main-logo" src="pics/weather-cut.png">
+        <h1>Live Weather Report</h1>
 
-      <!--Excpected user input : <city/country>-->
-      <label>Country/City:</label>
-      <input id = "user-input">
-      <button id="submit">Show Weather</button>
+        <!--Excpected user input : <city/country>-->
+        <label>Country/City:</label>
+        <input id = "user-input" placeholder="Enter country/city here">
+        <button id="submit">Show Weather</button>
       
-      <!--Weather Output Section-->
-      <div id='weather-output'></div>
+        <!--Weather Output Section-->
+        <div id='weather-output'></div>
+      </div>
     </main>
     <script src="app.js"></script>
   </body>
