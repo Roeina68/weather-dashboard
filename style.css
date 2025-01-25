@@ -266,4 +266,75 @@ p {
   background-color: #f1f1f1;
 }
 
-  
+
+/* Daily Brief styling*/
+
+/* General Recommendations Styling */
+#general-recommendations {
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+}
+
+/* Forecast Time Sections (Morning, Afternoon, Evening) */
+.forecast-time {
+    background: rgba(255, 255, 255, 0.9); /* Slightly less transparent */
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 10px 0;
+    width: 100%; /* Take full container width */
+    max-width: 600px; /* Limit width for smaller screens */
+    text-align: center;
+}
+
+/* Forecast Section Icons */
+.icons-container img {
+    width: 40px; /* Icon width */
+    height: 40px; /* Icon height */
+    margin: 5px;
+}
+
+/* Text Styling */
+h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+    margin: 10px 0;
+}
+
+/* Button Styling */
+button {
+    background-color: #4aa3df; /* Light blue */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #357ab7; /* Darker blue on hover */
+}
+
+/* Back Button */
+#back-button {
+    margin-top: 20px;
+    background-color: #ff6f61; /* Red for the back button */
+}
+
+#back-button:hover {
+    background-color: #e55548; /* Darker red on hover */
+}
