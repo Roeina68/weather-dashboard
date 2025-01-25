@@ -206,4 +206,64 @@ p {
   .favorite-city-box .remove-button:hover {
     background-color: #e60000;
   }
+  /* אנימציה להוספת עיר */
+.favorite-city-box {
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+#add-button {
+    background-color: #4aa3df;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#add-button:hover {
+    background-color: #357ab7;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+.favorite-city-box:nth-child(odd) {
+    background-color: #f7f7f7; /* צבע רקע אחר לעיר אי זוגית */
+}
+
+.favorite-city-box:nth-child(even) {
+    background-color: #e3f2fd; /* צבע רקע אחר לעיר זוגית */
+}
+/* Container for suggestions */
+#add-city + div {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: calc(100% - 20px);
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+/* Individual suggestion items */
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #f1f1f1;
+}
+
   
