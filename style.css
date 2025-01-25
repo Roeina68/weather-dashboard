@@ -1,5 +1,5 @@
-/* Global styles */
 body, html {
+
     margin: 0;
     padding: 0;
     height: 100%;
@@ -9,7 +9,7 @@ body, html {
 /* Background styling */
 body {
     /* Gradient from sky blue to light gray */
-    background: linear-gradient(to bottom, #a8d0e6, #f0f0f0);
+    background-image: url('pics/weather-background.jpg');
     color: #333; /* Text color */
     display: flex;
     justify-content: center;
@@ -26,10 +26,12 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+
 /* Logo styling */
 #main-logo {
+    
     max-width: 400px; 
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 
 /* Input and button styling */
@@ -134,6 +136,7 @@ p {
     margin: 10px 0;
   }
   .navbar {
+    
     display: flex;
     justify-content: center;
     background: #4aa3df;
@@ -156,10 +159,37 @@ p {
     background: #357ab7;
     border-radius: 5px;
 }
+.weather-card.sunny {
+    background: linear-gradient(to bottom, #ffeb3b, #ffffff);
+}
+.weather-card.partly-cloudy {
+    background: linear-gradient(to bottom, #d3d3d3, #f0f0f0);
+}
+.weather-card.cloudy {
+    background: linear-gradient(to bottom, #9e9e9e, #d6d6d6);
+}
+.weather-card.rainy {
+    background: linear-gradient(to bottom, #2196f3, #ffffff);
+}
+.weather-card.snowy {
+    background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+}
+.weather-card.default {
+    background: linear-gradient(to bottom, #f0f0f0, #ffffff);
+}
 
 /* Container for favorite cities */
 
+
+
+ /* Style for each city box */
+
 #favorites-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-height: 400px; /* גובה מקסימלי */
+    overflow-y: auto; /* גלילה פנימית */
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -167,8 +197,68 @@ p {
     padding: 20px;
     margin-top: 20px;
   }
-  
-  /* Style for each city box */
+  .favorite-city-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    max-width: 250px;
+    background: linear-gradient(to bottom, #e3f2fd, #ffffff);
+    border-radius: 15px;
+    border: 1px solid #4aa3df;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.favorite-city-box.sunny {
+    background: linear-gradient(to bottom, #ffeb3b, #ffffff); /* צהוב שמשי */
+}
+
+.favorite-city-box.rainy {
+    background: linear-gradient(to bottom, #2196f3, #ffffff); /* כחול גשום */
+}
+
+.favorite-city-box.snowy {
+    background: linear-gradient(to bottom, #e0f7fa, #ffffff); /* תכלת מושלג */
+}
+.favorite-city-box.partlycloudy {
+    background: linear-gradient(to bottom, #e0f7fa, #ffffff); /* תכלת מושלג */
+}
+.favorite-city-box.default {
+    background: linear-gradient(to bottom, #f0f0f0, #ffffff); /* רקע ניטרלי */
+}
+.favorite-city-box.partly-cloudy {
+    background: linear-gradient(to bottom, #d3d3d3, #f0f0f0); /* אפור מעונן חלקית */
+}
+
+.favorite-city-box.cloudy {
+    background: linear-gradient(to bottom, #9e9e9e, #d6d6d6); /* אפור כהה למעונן */
+}
+
+.favorite-city-box.thunderstorm {
+    background: linear-gradient(to bottom, #424242, #616161); /* אפור כהה לסערה */
+}
+
+.favorite-city-box.foggy {
+    background: linear-gradient(to bottom, #b3c2c2, #f0f0f0); /* גוון ערפל */
+}
+
+.favorite-city-box.windy {
+    background: linear-gradient(to bottom, #80c4ff, #ffffff); /* כחול לרוח חזקה */
+}
+
+
+.favorite-city-box img {
+    width: 60px;
+    margin-bottom: 10px;
+    display: block;
+    margin: 0 auto;
+}
+.favorite-city-box h3 {
+    font-size: 1.5rem;
+    color: #4aa3df;
+}
+
+ 
   .favorite-city-box {
     background-color: #ffffff;
     border-radius: 10px;
@@ -178,13 +268,7 @@ p {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
   }
-  
-  /* Style for the city info */
-  .favorite-city-box .city-info h3 {
-    margin: 10px 0;
-    font-size: 18px;
-    color: #333;
-  }
+
   
   .favorite-city-box .city-info p {
     margin: 5px 0;
@@ -236,13 +320,13 @@ p {
     background-color: #357ab7;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
-.favorite-city-box:nth-child(odd) {
-    background-color: #f7f7f7; /* צבע רקע אחר לעיר אי זוגית */
+.favorite-city-box:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
 }
 
-.favorite-city-box:nth-child(even) {
-    background-color: #e3f2fd; /* צבע רקע אחר לעיר זוגית */
-}
+
+
 /* Container for suggestions */
 #add-city + div {
   position: absolute;
