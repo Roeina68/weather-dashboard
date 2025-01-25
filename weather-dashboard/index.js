@@ -1,4 +1,4 @@
-const apiUrl = "https://api.weatherapi.com/v1/current.json";
+const apiUrl = "http://api.weatherapi.com/v1/current.json";
 const apiKey = "?key=07ef2814216a40a5a1d133813243107";
 const outputElement = document.getElementById("weather-output");
 
@@ -51,20 +51,19 @@ document.getElementById("submit").onclick = async function apiCall() {
 
 async function fetchWeather(city) {
   try {
-    const response = await fetch(
-      `https://vydb4aacbj.execute-api.us-east-1.amazonaws.com/prod/weather?city=${encodeURIComponent(city)}`
-    );
+    const response = await fetch(apiUrl + apiKey + "&q=" + city.toLowerCase());
+
     if (!response.ok) {
-      throw new Error("Failed to fetch weather data");
+      handleResponseError(response);
     }
-    const data = await response.json(); // Data returned by Lambda
-    displayWeather(data); // Pass the data to the displayWeather function
+
+    const data = await response.json();
+    displayWeather(data); // Display the weather for the city
   } catch (error) {
     console.error("Error:", error);
-    document.getElementById("weather-output").innerHTML = `<p>Error: ${error.message}</p>`;
+    outputElement.innerHTML = `<p>Error: ${error.message}</p>`;
   }
 }
-
 
 async function displayTopCitiesWeather(cities) {
   outputElement.innerHTML = ""; // Clear any existing content
@@ -93,7 +92,7 @@ function displayWeather(data) {
 
 async function getUserCountry() {
   try {
-    const response = await fetch("https://ip-api.com/json/"); // Use HTTPS
+    const response = await fetch("http://ip-api.com/json/");
     const data = await response.json();
     return data.countryCode || "IL"; // Default to Israel if no country is found
   } catch (error) {
@@ -101,7 +100,6 @@ async function getUserCountry() {
     return "IL"; // Default to Israel
   }
 }
-
 
 function handleResponseError(response) {
   if (response.status === 400) {
