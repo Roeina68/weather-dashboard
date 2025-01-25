@@ -1,3 +1,10 @@
+// landing.html JavaScript
+
+
+
+
+// index.html JavaScript
+
 const apiUrl = "http://api.weatherapi.com/v1/current.json";
 const apiKey = "?key=07ef2814216a40a5a1d133813243107";
 const outputElement = document.getElementById("weather-output");
@@ -49,3 +56,10 @@ function apiCall() {
       outputElement.innerHTML = `<p>Error: ${error.message}</p>`;
     });
 }
+
+
+// favorite.html JavaScript
+
+
+
+
