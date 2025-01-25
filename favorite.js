@@ -80,6 +80,18 @@ document.getElementById("clear-all-button").onclick = function () {
     }
 };
 
+document.getElementById("clear-all-button").onclick = function () {
+    // בודק אם יש ערים ברשימה
+    if (favorites.length === 0) {
+        alert("No cities in the favorites list!"); // הודעה אם אין ערים
+    } else {
+        // מנקה את רשימת הערים המועדפות ב-localStorage
+        localStorage.removeItem("favorites");
+
+        // מנקה את התצוגה של הערים המועדפות
+        favoritesContainer.innerHTML = "";
+    }
+};
 
 // Initial render of the list
 renderFavorites();
