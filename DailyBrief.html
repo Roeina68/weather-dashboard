@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main>
+    <!-- Input Section -->
+    <div id="input-section">
+      <h1>Weather Forecast</h1>
+      <label for="city-input">Enter City:</label>
+      <input id="city-input" placeholder="Enter city name">
+      <button id="get-advice">Get Forecast</button>
+    </div>
+
+    <!-- Forecast Section -->
+    <div id="forecast-section" style="display: none;">
+      <h2>Forecast for Today</h2>
+      <div id="general-recommendations"></div> <!-- המלצות כלליות -->
+      <div id="forecast-details">
+        <!-- Morning Forecast -->
+        <div class="forecast-time">
+          <h3>Morning</h3>
+          <p id="morning-temp"></p>
+          <div id="morning-icons" class="icons-container"></div>
+        </div>
+        <!-- Afternoon Forecast -->
+        <div class="forecast-time">
+          <h3>Afternoon</h3>
+          <p id="afternoon-temp"></p>
+          <div id="afternoon-icons" class="icons-container"></div>
+        </div>
+        <!-- Evening Forecast -->
+        <div class="forecast-time">
+          <h3>Evening</h3>
+          <p id="evening-temp"></p>
+          <div id="evening-icons" class="icons-container"></div>
+        </div>
+      </div>
+      <button id="back-button">Back</button>
+    </div>
+  </main>
+  <script src="./dailybrief.js"></script>
+</body>
+</html>
