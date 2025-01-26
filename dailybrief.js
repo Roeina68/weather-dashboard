@@ -9,25 +9,40 @@ document.getElementById("back-button").onclick = () => {
 };
 
 function getForecast() {
-  const city = document.getElementById("city-input").value.toLowerCase();
+  const city = document.getElementById("city-input").value.trim().toLowerCase();
   const days = 1;
 
-  // Use your API Gateway endpoint instead of the WeatherAPI URL
-  const lambdaUrl = "https://6qflo080id.execute-api.us-east-1.amazonaws.com/prod/weather?city=" + city + "&days=" + days;
+  if (!city) {
+    alert("Please enter a city name.");
+    return;
+  }
+
+  // Build the API URL
+  const lambdaUrl = `${apiUrl}?city=${encodeURIComponent(city)}&days=${days}`;
+  console.log(`Requesting weather for: ${lambdaUrl}`); // Debugging log
 
   fetch(lambdaUrl)
     .then(response => {
-      if (!response.ok) throw new Error("Failed to fetch data from Lambda");
-      return response.json(); // Parse the JSON response
+      if (!response.ok) {
+        console.error("API request failed:", response.statusText);
+        throw new Error("Failed to fetch data from Lambda");
+      }
+      return response.json();
     })
     .then(data => {
-      const weatherData = JSON.parse(data.body); // Parse the body returned by Lambda
-      updateForecast(weatherData.forecast.forecastday[0]);
+      console.log("API response:", data); // Debugging log
+      const parsedData = JSON.parse(data.body); // Parse the `body` field of the response
+      if (!parsedData.forecast || !parsedData.forecast.forecastday) {
+        throw new Error("Invalid data format from Lambda");
+      }
+      const forecastData = parsedData.forecast.forecastday[0];
+      updateForecast(forecastData);
     })
-    .catch(error => alert(`Error: ${error.message}`));
+    .catch(error => {
+      console.error("Error fetching weather data:", error);
+      alert(`Error: ${error.message}`);
+    });
 }
-
-
 
 function updateForecast(forecast) {
   // Extract general weather data
@@ -38,9 +53,9 @@ function updateForecast(forecast) {
   updateGeneralRecommendations(dailyTemp, dailyCondition);
 
   // Update forecasts for morning, afternoon, and evening
-  const morning = forecast.hour[8];
-  const afternoon = forecast.hour[14];
-  const evening = forecast.hour[20];
+  const morning = forecast.hour[8]; // 8 AM
+  const afternoon = forecast.hour[14]; // 2 PM
+  const evening = forecast.hour[20]; // 8 PM
 
   updateForecastTime("morning", morning);
   updateForecastTime("afternoon", afternoon);
@@ -106,23 +121,51 @@ function updateGeneralRecommendations(temp, condition) {
 }
 
 function updateForecastTime(time, data) {
-  document.getElementById(`${time}-temp`).textContent = `Temperature: ${data.temp_c}°C`;
-
-  const iconsContainer = document.getElementById(`${time}-icons`);
-  iconsContainer.innerHTML = generateIcons(data);
-}
-
-function generateIcons(data) {
-  let iconsHTML = "";
-  if (data.condition.text.toLowerCase().includes("rain")) {
-    iconsHTML += '<img src="pics/umbrella_icon.png" alt="Umbrella" title="Rainy day! Bring an umbrella.">';
-    iconsHTML += '<img src="pics/raincoat_icon.png" alt="Raincoat" title="Wear a waterproof coat.">';
-  } else if (data.condition.text.toLowerCase().includes("clear")) {
-    iconsHTML += '<img src="pics/sunscreen_icon.png" alt="Sunscreen" title="Sunny day! Use sunscreen.">';
-    iconsHTML += '<img src="pics/hat_icon.png" alt="Hat" title="Wear a hat to stay cool.">';
-  } else if (data.condition.text.toLowerCase().includes("snow")) {
-    iconsHTML += '<img src="pics/snowboots_icon.png" alt="Snow Boots" title="Wear snow boots to stay warm.">';
+    const recommendationsContainer = document.getElementById(`${time}-icons`);
+    let recommendations = `<h4>${time.charAt(0).toUpperCase() + time.slice(1)}:</h4>`;
+  
+    const condition = data.condition.text.toLowerCase();
+    const temp = data.temp_c;
+  
+    // Maintain a set to track already applied recommendations
+    const appliedRecommendations = new Set();
+  
+    // Helper function to add a recommendation if it's not a duplicate
+    function addRecommendation(recommendation) {
+      if (!appliedRecommendations.has(recommendation)) {
+        recommendations += `<p>${recommendation}</p>`;
+        appliedRecommendations.add(recommendation);
+      }
+    }
+  
+    // Weather condition-specific recommendations
+    if (condition.includes("rain")) {
+      addRecommendation("Rain expected. Carry an umbrella and wear waterproof shoes.");
+    }
+    if (condition.includes("clear")) {
+      addRecommendation("Clear skies! Great for outdoor activities. Don’t forget sunscreen.");
+    }
+    if (condition.includes("snow")) {
+      addRecommendation("Snowy weather! Wear snow boots and bundle up warmly.");
+    }
+    if (condition.includes("fog")) {
+      addRecommendation("Foggy! Drive carefully and stay visible if you're outside.");
+    }
+    if (condition.includes("cloud")) {
+      addRecommendation("Cloudy skies! Light layers should keep you comfortable.");
+    }
+  
+    // Temperature-specific recommendations
+    if (temp <= 0) {
+      addRecommendation("Freezing temperatures! Wear heavy layers, gloves, and a scarf.");
+    } else if (temp > 0 && temp <= 15) {
+      addRecommendation("Chilly weather! A jacket and scarf are ideal.");
+    } else if (temp > 15 && temp <= 25) {
+      addRecommendation("Comfortable temperatures. Light layers are sufficient.");
+    } else {
+      addRecommendation("Hot temperatures! Stay cool with breathable fabrics and stay hydrated.");
+    }
+  
+    recommendationsContainer.innerHTML = recommendations;
   }
-  return iconsHTML;
-}
-
+  
