@@ -115,37 +115,3 @@ function handleResponseError(response) {
     throw new Error("Unknown error occurred");
   }
 }
-function displayWeather(data) {
-  const { temp_c: temperature, condition, humidity, wind_kph: windSpeed } = data.current;
-  const { name: location } = data.location;
-
-  // קביעת המחלקה לפי מזג האוויר
-  let weatherClass = '';
-  const description = condition.text.toLowerCase();
-  if (description.includes('sunny')) {
-      weatherClass = 'sunny';
-  } else if (description.includes('partly cloudy')) {
-      weatherClass = 'partly-cloudy';
-  } else if (description.includes('cloudy')) {
-      weatherClass = 'cloudy';
-  } else if (description.includes('rain')) {
-      weatherClass = 'rainy';
-  } else if (description.includes('snow')) {
-      weatherClass = 'snowy';
-  } else {
-      weatherClass = 'default';
-  }
-
-  // יצירת כרטיס
-  outputElement.innerHTML += `
-    <div class="weather-card ${weatherClass}">
-      <p><b>${location}</b></p>
-      <p>Temperature: <b>${temperature}°C</b></p>
-      <p>Humidity: <b>${humidity}%</b></p>
-      <p>Wind Speed: <b>${windSpeed} k/h</b></p>
-      <p>Condition: <b>${condition.text}</b></p>
-      <img src="https:${condition.icon}" alt="Weather Icon">
-    </div>
-  `;
-}
-
