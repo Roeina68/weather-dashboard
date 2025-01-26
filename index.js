@@ -115,3 +115,13 @@ function handleResponseError(response) {
     throw new Error("Unknown error occurred");
   }
 }
+
+
+function login() {
+  const authUrl = `${config.domain}/login?` +
+    `response_type=token` +
+    `&client_id=${config.clientId}` +
+    `&redirect_uri=${encodeURIComponent(config.redirectUri)}` +
+    `&scope=openid+aws.cognito.signin.user.admin`;
+  window.location.href = authUrl;
+}

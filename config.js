@@ -1,5 +1,5 @@
 const config = {
-  clientId: "6knhm4eb0b707df4mb47rewd",
-  domain: "https://us-east-1trppd1bn.auth.us-east-1.amazoncognito.com",
-  redirectUri: "https://cognito-exercise-20290118.s3.us-east-2.amazonaws.com/callback.html"
+  clientId: '2dugrb3etm17pfegrcuqvn9oa6&',
+  domain: 'https://us-east-15szybp0cb.auth.us-east-1.amazoncognito.com',
+  redirectUri: 'https://staging.d1it4d6gxtu9ln.amplifyapp.com/callback.html'
 };
