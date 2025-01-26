@@ -1,5 +1,4 @@
-const apiUrl = "http://api.weatherapi.com/v1/forecast.json";
-const apiKey = "?key=07ef2814216a40a5a1d133813243107";
+const apiUrl = "https://6qflo080id.execute-api.us-east-1.amazonaws.com/prod/weather"; // Replace with your Lambda API Gateway URL
 const inputSection = document.getElementById("input-section");
 const forecastSection = document.getElementById("forecast-section");
 
@@ -10,28 +9,35 @@ document.getElementById("back-button").onclick = () => {
 };
 
 function getForecast() {
-  const city = "&q=" + document.getElementById("city-input").value.toLowerCase() + "&days=1";
+  const city = document.getElementById("city-input").value.toLowerCase();
+  const days = 1;
 
-  fetch(apiUrl + apiKey + city)
+  // Use your API Gateway endpoint instead of the WeatherAPI URL
+  const lambdaUrl = "https://6qflo080id.execute-api.us-east-1.amazonaws.com/prod/weather?city=" + city + "&days=" + days;
+
+  fetch(lambdaUrl)
     .then(response => {
-      if (!response.ok) throw new Error("City not found");
-      return response.json();
+      if (!response.ok) throw new Error("Failed to fetch data from Lambda");
+      return response.json(); // Parse the JSON response
     })
     .then(data => {
-      updateForecast(data.forecast.forecastday[0]);
+      const weatherData = JSON.parse(data.body); // Parse the body returned by Lambda
+      updateForecast(weatherData.forecast.forecastday[0]);
     })
     .catch(error => alert(`Error: ${error.message}`));
 }
 
+
+
 function updateForecast(forecast) {
-  // הפקת נתוני מזג האוויר הכלליים
+  // Extract general weather data
   const dailyCondition = forecast.day.condition.text.toLowerCase();
   const dailyTemp = forecast.day.avgtemp_c;
 
-  // עדכון המלצות כלליות
+  // Update general recommendations
   updateGeneralRecommendations(dailyTemp, dailyCondition);
 
-  // עדכון תחזיות לבוקר, צהריים וערב
+  // Update forecasts for morning, afternoon, and evening
   const morning = forecast.hour[8];
   const afternoon = forecast.hour[14];
   const evening = forecast.hour[20];
@@ -46,11 +52,9 @@ function updateForecast(forecast) {
 
 function updateGeneralRecommendations(temp, condition) {
   const recommendationsElement = document.getElementById("general-recommendations");
-  
-  // התחלה של ההמלצות
+
   let recommendations = `<p><b>General Weather:</b> ${condition}, Avg Temp: ${temp}°C</p>`;
-  
-  // ביגוד
+
   recommendations += "<h3>What to Wear:</h3>";
   if (condition.includes("rain")) {
     recommendations += "<p>Wear a waterproof coat, boots, and take an umbrella. Stay warm and dry!</p>";
@@ -63,8 +67,7 @@ function updateGeneralRecommendations(temp, condition) {
   } else {
     recommendations += "<p>Wear comfortable clothing appropriate for mild weather.</p>";
   }
-  
-  // פעילויות מומלצות
+
   recommendations += "<h3>Recommended Activities:</h3>";
   if (condition.includes("rain")) {
     recommendations += "<p>It's a good day to stay indoors. Enjoy reading a book, watching a movie, or sipping a hot drink.</p>";
@@ -80,37 +83,31 @@ function updateGeneralRecommendations(temp, condition) {
   } else {
     recommendations += "<p>It's a neutral day! You can plan both indoor and outdoor activities comfortably.</p>";
   }
-  
-  // אזהרות
+
   recommendations += "<h3>Warnings:</h3>";
   let warnings = "";
-  
+
   if (temp < 5) {
     warnings += "<p>It's very cold! Avoid prolonged exposure to the cold and keep yourself warm.</p>";
-  } 
+  }
   if (temp > 30) {
     warnings += "<p>It's very hot! Stay indoors during peak sun hours and drink plenty of water.</p>";
-  } 
+  }
   if (condition.includes("rain") || condition.includes("snow")) {
     warnings += "<p>Roads might be slippery. Drive carefully and avoid unnecessary travel.</p>";
   }
 
-  // אם אין אזהרות, נוסיף הודעה מתאימה
   if (warnings === "") {
     warnings = "<p>No warnings for today. Enjoy your day!</p>";
   }
-  
+
   recommendations += warnings;
-  
-  // עדכון ה-HTML
   recommendationsElement.innerHTML = recommendations;
 }
 
 function updateForecastTime(time, data) {
-  // עדכון טמפרטורה
   document.getElementById(`${time}-temp`).textContent = `Temperature: ${data.temp_c}°C`;
 
-  // יצירת אייקונים
   const iconsContainer = document.getElementById(`${time}-icons`);
   iconsContainer.innerHTML = generateIcons(data);
 }
