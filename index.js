@@ -125,3 +125,44 @@ function login() {
     `&scope=openid+aws.cognito.signin.user.admin`;
   window.location.href = authUrl;
 }
+
+function updateClock() {
+  const clockElement = document.getElementById('clock');
+  const now = new Date();
+  clockElement.textContent = now.toLocaleTimeString('en-US', { hour12: false });
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+function getWeatherClass(condition) {
+  condition = condition.toLowerCase();
+  if (condition.includes("sun")) {
+      return "sunny";
+  } else if (condition.includes("partly cloudy")) {
+      return "partly-cloudy";
+  } else if (condition.includes("cloud")) {
+      return "cloudy";
+  } else if (condition.includes("rain")) {
+      return "rainy";
+  } else if (condition.includes("snow")) {
+      return "snowy";
+  } else {
+      return "default";
+  }
+}
+
+function displayWeather(data) {
+  const condition = data.current.condition.text;
+  const weatherClass = getWeatherClass(condition);
+
+  // יצירת הכרטיס
+  outputElement.innerHTML += `
+      <div class="weather-card ${weatherClass}">
+          <h3>${data.location.name}</h3>
+          <p>Temperature: ${data.current.temp_c}°C</p>
+          <p>Condition: ${condition}</p>
+          <img src="https:${data.current.condition.icon}" alt="${condition}">
+      </div>
+  `;
+}

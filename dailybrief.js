@@ -8,39 +8,21 @@ document.getElementById("back-button").onclick = () => {
   inputSection.style.display = "block";
 };
 
-function getForecast() {
-  const city = document.getElementById("city-input").value.toLowerCase();
-  const days = 1;
-
-  // Use your API Gateway endpoint instead of the WeatherAPI URL
-  const lambdaUrl = "https://6qflo080id.execute-api.us-east-1.amazonaws.com/prod/weather?city=" + city + "&days=" + days;
-
-  fetch(lambdaUrl)
-    .then(response => {
-      if (!response.ok) throw new Error("Failed to fetch data from Lambda");
-      return response.json(); // Parse the JSON response
-    })
-    .then(data => {
-      const weatherData = JSON.parse(data.body); // Parse the body returned by Lambda
-      updateForecast(weatherData.forecast.forecastday[0]);
-    })
-    .catch(error => alert(`Error: ${error.message}`));
-}
-
-
-
 function updateForecast(forecast) {
-  // Extract general weather data
+  console.log("Updating forecast for:", forecast); // לוג נתונים
+
   const dailyCondition = forecast.day.condition.text.toLowerCase();
   const dailyTemp = forecast.day.avgtemp_c;
 
-  // Update general recommendations
   updateGeneralRecommendations(dailyTemp, dailyCondition);
 
-  // Update forecasts for morning, afternoon, and evening
   const morning = forecast.hour[8];
   const afternoon = forecast.hour[14];
   const evening = forecast.hour[20];
+
+  console.log("Morning forecast:", morning);
+  console.log("Afternoon forecast:", afternoon);
+  console.log("Evening forecast:", evening);
 
   updateForecastTime("morning", morning);
   updateForecastTime("afternoon", afternoon);
@@ -49,6 +31,36 @@ function updateForecast(forecast) {
   inputSection.style.display = "none";
   forecastSection.style.display = "block";
 }
+
+async function getForecast() {
+  const city = document.getElementById("city-input").value.trim().toLowerCase();
+  const days = 1;
+
+  if (!city) {
+    alert("Please enter a city name.");
+    return;
+  }
+
+  const lambdaUrl = `${apiUrl}?city=${city}&days=${days}`;
+  console.log("Fetching data from:", lambdaUrl); // לוג URL
+
+  try {
+    const response = await fetch(lambdaUrl);
+    if (!response.ok) {
+      throw new Error("Failed to fetch data from Lambda");
+    }
+
+    const data = await response.json(); // Parse the JSON response
+    console.log("Received data:", data); // לוג נתונים
+
+    const weatherData = JSON.parse(data.body); // Parse the body returned by Lambda
+    updateForecast(weatherData.forecast.forecastday[0]);
+  } catch (error) {
+    console.error("Error fetching forecast:", error.message); // לוג שגיאה
+    alert(`Error: ${error.message}`);
+  }
+}
+
 
 function updateGeneralRecommendations(temp, condition) {
   const recommendationsElement = document.getElementById("general-recommendations");
@@ -125,4 +137,3 @@ function generateIcons(data) {
   }
   return iconsHTML;
 }
-
