@@ -386,7 +386,7 @@ p {
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin: 10px 0;
-    width: 100%; /* Take full container width */
+    width: 95%; /* Take full container width */
     max-width: 600px; /* Limit width for smaller screens */
     text-align: center;
 }
