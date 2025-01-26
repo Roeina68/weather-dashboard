@@ -115,13 +115,14 @@ function updateForecastTime(time, data) {
 function generateIcons(data) {
   let iconsHTML = "";
   if (data.condition.text.toLowerCase().includes("rain")) {
-    iconsHTML += '<img src="umbrella_icon.png" alt="Umbrella" title="Rainy day! Bring an umbrella.">';
-    iconsHTML += '<img src="raincoat_icon.png" alt="Raincoat" title="Wear a waterproof coat.">';
+    iconsHTML += '<img src="pics/umbrella_icon.png" alt="Umbrella" title="Rainy day! Bring an umbrella.">';
+    iconsHTML += '<img src="pics/raincoat_icon.png" alt="Raincoat" title="Wear a waterproof coat.">';
   } else if (data.condition.text.toLowerCase().includes("clear")) {
-    iconsHTML += '<img src="sunscreen_icon.png" alt="Sunscreen" title="Sunny day! Use sunscreen.">';
-    iconsHTML += '<img src="hat_icon.png" alt="Hat" title="Wear a hat to stay cool.">';
+    iconsHTML += '<img src="pics/sunscreen_icon.png" alt="Sunscreen" title="Sunny day! Use sunscreen.">';
+    iconsHTML += '<img src="pics/hat_icon.png" alt="Hat" title="Wear a hat to stay cool.">';
   } else if (data.condition.text.toLowerCase().includes("snow")) {
-    iconsHTML += '<img src="snowboots_icon.png" alt="Snow Boots" title="Wear snow boots to stay warm.">';
+    iconsHTML += '<img src="pics/snowboots_icon.png" alt="Snow Boots" title="Wear snow boots to stay warm.">';
   }
   return iconsHTML;
 }
+
