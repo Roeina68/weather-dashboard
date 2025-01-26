@@ -123,6 +123,8 @@ function login() {
     `&client_id=${config.clientId}` +
     `&redirect_uri=${encodeURIComponent(config.redirectUri)}` +
     `&scope=openid+aws.cognito.signin.user.admin`;
+
+  console.log("Auth URL:", authUrl); // Debugging
   window.location.href = authUrl;
 }
 

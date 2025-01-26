@@ -8,11 +8,11 @@
 </head>
 <body>
   <main>
-      <nav class="navbar">
+    <nav class="navbar">
       <a href="index.html">Home</a>
       <a href="favorite.html">Favorite</a>
       <a href="DailyBrief.html" >Daily Brief</a>
-      <a href="landing.html">Login</a>
+      <a href="javascript:void(0)" onclick="login()">Login</a>
     </nav>
     <!-- Input Section -->
     <div id="input-section">
@@ -49,6 +49,9 @@
       <button id="back-button">Back</button>
     </div>
   </main>
-  <script src="./dailybrief.js"></script>
+    <!-- Include scripts -->
+  <script src="config.js" defer></script>
+  <script src="favorite.js" defer></script>
+  <script src="index.js" defer></script>
 </body>
 </html>

@@ -1,14 +1,19 @@
 const API_BASE_URL = "https://93hal3ta95.execute-api.us-east-1.amazonaws.com/production"; // Replace with your deployed API Gateway URL
-const userId = sessionStorage.getItem('sub'); // Assumes Cognito `sub` is stored in sessionStorage after login
+
+// Reusable function to check session validity
+function checkSession() {
+  const userId = sessionStorage.getItem("sub");
+  if (!userId) {
+    alert("Your session has expired. Please log in again.");
+    login(); // Call the login function from index.js
+  }
+  return userId;
+}
 
 // Save preferences to DynamoDB
 async function savePreferences(favorites) {
-  const userId = sessionStorage.getItem("sub"); // Get the `sub` from sessionStorage
-
-  if (!userId) {
-    alert("Your session has expired. Please log in again.");
-    window.location.href = "login.html"; // Redirect to login page or appropriate route
-  }
+  const userId = checkSession(); // Validate session
+  if (!userId) return;
 
   const payload = {
     userId: userId,
@@ -37,9 +42,11 @@ async function savePreferences(favorites) {
   }
 }
 
-
 // Get preferences from DynamoDB
 async function getPreferences() {
+  const userId = checkSession(); // Validate session
+  if (!userId) return [];
+
   try {
     const response = await fetch(`${API_BASE_URL}/GetUserPreferences?userId=${userId}`);
     if (!response.ok) {
@@ -57,16 +64,16 @@ async function getPreferences() {
 const apiUrl = "https://api.weatherapi.com/v1/current.json";
 const apiKey = "?key=07ef2814216a40a5a1d133813243107";
 
-const addButton = document.getElementById('add-button');
-const cityInput = document.getElementById('add-city');
-const favoritesContainer = document.getElementById('favorites-container'); // מקום להצגת הערים
+const addButton = document.getElementById("add-button");
+const cityInput = document.getElementById("add-city");
+const favoritesContainer = document.getElementById("favorites-container"); // Place to display cities
 
 let favorites = [];
 
 // Function to fetch weather for a city
 function fetchWeatherForCity(city) {
   return fetch(apiUrl + apiKey + `&q=${city}`)
-    .then(response => {
+    .then((response) => {
       if (!response.ok) throw new Error(`Unable to fetch weather for ${city}`);
       return response.json();
     });
@@ -74,17 +81,17 @@ function fetchWeatherForCity(city) {
 
 // Render the favorites list
 function renderFavorites() {
-  favoritesContainer.innerHTML = ''; // Clear existing list
+  favoritesContainer.innerHTML = ""; // Clear existing list
   favorites.forEach((city, index) => {
     fetchWeatherForCity(city)
-      .then(data => {
+      .then((data) => {
         const temperature = data.current.temp_c;
         const description = data.current.condition.text;
         const conditionIcon = data.current.condition.icon;
 
         // Create a new city box
-        const cityBox = document.createElement('div');
-        cityBox.classList.add('favorite-city-box');
+        const cityBox = document.createElement("div");
+        cityBox.classList.add("favorite-city-box");
         cityBox.innerHTML = `
           <div class="city-info">
             <h3>${city}</h3>
@@ -96,15 +103,15 @@ function renderFavorites() {
         favoritesContainer.appendChild(cityBox);
 
         // Add event to remove button
-        cityBox.querySelector('.remove-button').onclick = async () => {
+        cityBox.querySelector(".remove-button").onclick = async () => {
           favorites.splice(index, 1);
           await savePreferences(favorites); // Save to DynamoDB
           renderFavorites();
         };
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
-        const errorItem = document.createElement('div');
+        const errorItem = document.createElement("div");
         errorItem.textContent = `Error loading weather for ${city}`;
         favoritesContainer.appendChild(errorItem);
       });
@@ -124,7 +131,7 @@ addButton.onclick = async () => {
   if (city && !favorites.includes(city)) {
     favorites.push(city);
     await savePreferences(favorites); // Save to DynamoDB
-    cityInput.value = '';
+    cityInput.value = "";
     renderFavorites();
   } else if (favorites.includes(city)) {
     alert(`${city} is already in your favorites.`);
