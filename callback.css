@@ -17,12 +17,17 @@ p {
   margin-top: 20px;
   word-wrap: break-word;
   text-align: left;
-  color: red; /* Corrected 'rad' to 'red' */
+  color: red;
 }
 
 #tokenDisplay {
   margin-top: 20px;
   word-wrap: break-word;
-  text-align: left;
+  overflow-wrap: break-word;
+  max-width: 90%; /* Restrict width for readability */
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   color: green;
 }
