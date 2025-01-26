@@ -163,7 +163,7 @@ p {
     background: linear-gradient(to bottom, #ffeb3b, #ffffff);
 }
 .weather-card.partly-cloudy {
-    background: linear-gradient(to bottom, #d3d3d3, #f0f0f0);
+    background: linear-gradient(to bottom, #d3d3d3, #feffb5);
 }
 .weather-card.cloudy {
     background: linear-gradient(to bottom, #9e9e9e, #d6d6d6);
@@ -221,13 +221,13 @@ p {
     background: linear-gradient(to bottom, #e0f7fa, #ffffff); /* תכלת מושלג */
 }
 .favorite-city-box.partlycloudy {
-    background: linear-gradient(to bottom, #e0f7fa, #ffffff); /* תכלת מושלג */
+    background: linear-gradient(to bottom, #c9d3d4, #f9f4b3); /* תכלת מושלג */
 }
 .favorite-city-box.default {
     background: linear-gradient(to bottom, #f0f0f0, #ffffff); /* רקע ניטרלי */
 }
 .favorite-city-box.partly-cloudy {
-    background: linear-gradient(to bottom, #d3d3d3, #f0f0f0); /* אפור מעונן חלקית */
+    background: linear-gradient(to bottom, #d3d3d3, #fffcbb); /* אפור מעונן חלקית */
 }
 
 .favorite-city-box.cloudy {
@@ -352,7 +352,20 @@ p {
 
 
 /* Daily Brief styling*/
+#forecast-section 
+{
 
+    display: none;
+    text-align: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-height: 700px; /* גובה מקסימלי */
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 20px;
+}
 /* General Recommendations Styling */
 #general-recommendations {
     background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
@@ -363,6 +376,7 @@ p {
     width: 80%;
     max-width: 800px;
     text-align: center;
+    
 }
 
 /* Forecast Time Sections (Morning, Afternoon, Evening) */
@@ -376,7 +390,15 @@ p {
     max-width: 600px; /* Limit width for smaller screens */
     text-align: center;
 }
+#forecast-details {
+    padding: 15px;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
 
+}
 /* Forecast Section Icons */
 .icons-container img {
     width: 40px; /* Icon width */
@@ -422,3 +444,4 @@ button:hover {
 #back-button:hover {
     background-color: #e55548; /* Darker red on hover */
 }
+
