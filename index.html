@@ -10,12 +10,16 @@
   </head>
   <!--comment-->
   <body>
-    <nav class="navbar">
+    <div id="sidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()">×</a>
       <a href="index.html">Home</a>
       <a href="favorite.html">Favorite</a>
-      <a href="DailyBrief.html" >Daily Brief</a>
+      <a href="DailyBrief.html">Daily Brief</a>
       <span id="user-info"></span>
-    </nav>
+    </div>
+    <div id="openSidebar" class="openbtn" onclick="toggleNav()">☰</div>
+    
+    </div>
     <main>
       <section id="live-clock">
         <h2 id="clock"></h2>

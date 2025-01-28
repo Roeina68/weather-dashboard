@@ -9,12 +9,13 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <nav class="navbar">
+    <div id="sidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
       <a href="index.html">Home</a>
       <a href="favorite.html">Favorite</a>
-      <a href="DailyBrief.html" >Daily Brief</a>
-      <a href="landing.html">Login</a>
-    </nav>
+      <a href="DailyBrief.html">Daily Brief</a>
+      <span id="user-info"></span>
+    </div>
     <div class="centered-content">
       <img id="main-logo" src="pics/weather-cut.png" alt="Weather Dashboard Logo">
       <h1>Welcome Back</h1>

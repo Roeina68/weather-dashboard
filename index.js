@@ -181,3 +181,37 @@ document.addEventListener("DOMContentLoaded", () => {
     userInfo.innerHTML = `<a href="javascript:void(0)" onclick="login()" >Login</a>`;
   }
 });
+// פונקציה לפתיחת התפריט
+function openNav() {
+  document.getElementById("sidebar").style.width = "250px";
+}
+
+// פונקציה לסגירת התפריט
+function closeNav() {
+  document.getElementById("sidebar").style.width = "0";
+}
+
+// משתנה לניהול מצב התפריט
+let sidebarOpen = false;
+
+function toggleNav() {
+  const sidebar = document.getElementById("sidebar");
+  
+  if (sidebarOpen) {
+    // אם התפריט פתוח, נסגור אותו
+    sidebar.style.width = "0";
+    sidebarOpen = false;
+  } else {
+    // אם התפריט סגור, נפתח אותו
+    sidebar.style.width = "250px";
+    sidebarOpen = true;
+  }
+}
+
+// דאג לטעון את הפונקציות הללו בכל דף שדרוש
+document.addEventListener("DOMContentLoaded", function() {
+  const menuButton = document.querySelector('.menu-button');
+  if (menuButton) {
+    menuButton.addEventListener('click', toggleNav);
+  }
+});
