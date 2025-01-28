@@ -168,3 +168,28 @@ function updateForecastTime(time, data) {
   
     recommendationsContainer.innerHTML = recommendations;
   }
+
+
+  function login() {
+  const authUrl = `${config.domain}/login?` +
+    `response_type=token` +
+    `&client_id=${config.clientId}` +
+    `&redirect_uri=${encodeURIComponent(config.redirectUri)}` +
+    `&scope=openid+aws.cognito.signin.user.admin`;
+
+  console.log("Auth URL:", authUrl); // Debugging
+  window.location.href = authUrl;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const userInfo = document.getElementById("user-info");
+  const userName = sessionStorage.getItem("username"); // Get the username from sessionStorage
+
+  if (userName) {
+    // Display the username if logged in
+    userInfo.innerHTML = `<span>Welcome, ${userName}</span>`;
+  } else {
+    // Show the login button if not logged in
+    userInfo.innerHTML = `<a href="javascript:void(0)" onclick="login()">Login</a>`;
+  }
+});

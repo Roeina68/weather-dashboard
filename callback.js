@@ -9,6 +9,7 @@ function saveTokenData(params) {
     if (params.id_token) {
         try {
             const decodedIdToken = JSON.parse(atob(params.id_token.split('.')[1])); // Decode the ID token
+            const username = decodedIdToken["cognito:username"] || "User"; // Extract the username
             const firstName = decodedIdToken.given_name || "Unknown";
             const email = decodedIdToken.email || "Unknown";
             const sub = decodedIdToken.sub; // Extract the unique sub identifier
@@ -18,6 +19,7 @@ function saveTokenData(params) {
             sessionStorage.setItem('access_token', params.access_token || "N/A");
             sessionStorage.setItem('first_name', firstName);
             sessionStorage.setItem('email', email);
+            sessionStorage.setItem("username", username);
             sessionStorage.setItem('sub', sub); // Save the sub value
 
             console.log("Saved user information:", { firstName, email, sub });

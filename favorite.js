@@ -151,3 +151,27 @@ document.getElementById("clear-all-button").onclick = async () => {
 
 // Initial render of the list
 loadFavorites();
+
+document.addEventListener("DOMContentLoaded", () => {
+  const userInfo = document.getElementById("user-info");
+  const userName = sessionStorage.getItem("username"); // Use 'username' instead of 'first_name'
+
+  if (userName) {
+    // If user is logged in, display the username
+    userInfo.innerHTML = `<span>Welcome, ${userName}</span>`;
+  } else {
+    // If no user is logged in, display the login button
+    userInfo.innerHTML = `<a href="javascript:void(0)" onclick="login()">Login</a>`;
+  }
+});
+
+function login() {
+  const authUrl = `${config.domain}/login?` +
+    `response_type=token` +
+    `&client_id=${config.clientId}` +
+    `&redirect_uri=${encodeURIComponent(config.redirectUri)}` +
+    `&scope=openid+aws.cognito.signin.user.admin`;
+
+  console.log("Auth URL:", authUrl); // Debugging
+  window.location.href = authUrl;
+}

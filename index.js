@@ -168,3 +168,16 @@ function displayWeather(data) {
       </div>
   `;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const userInfo = document.getElementById("user-info");
+  const userName = sessionStorage.getItem("username"); // Get the username from sessionStorage
+
+  if (userName) {
+    // Display the username if logged in
+    userInfo.innerHTML = `<span>Welcome, ${userName}</span>`;
+  } else {
+    // Show the login button if not logged in
+    userInfo.innerHTML = `<a href="javascript:void(0)" onclick="login()">Login</a>`;
+  }
+});
