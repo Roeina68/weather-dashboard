@@ -175,9 +175,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (userName) {
     // Display the username if logged in
-    userInfo.innerHTML = `<span id="user-info">Welcome, ${userName}</span>`;
+    userInfo.innerHTML = `<span id="user-info">Welcome, ${userName}<button onclick="signOut()">Logout</button></span>`;
   } else {
     // Show the login button if not logged in
     userInfo.innerHTML = `<a href="javascript:void(0)" onclick="login()" >Login</a>`;
   }
 });
+
