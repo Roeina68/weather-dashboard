@@ -9,12 +9,15 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
-    <nav class="navbar">
+    <div id="sidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()">×</a>
       <a href="index.html">Home</a>
       <a href="favorite.html">Favorite</a>
       <a href="DailyBrief.html">Daily Brief</a>
       <span id="user-info"></span>
-    </nav>
+    </div>
+    <div id="openSidebar" class="openbtn" onclick="toggleNav()">☰</div>
+    
     <!-- Main Content -->
     <div class="centered-content">
       <img id="main-logo" src="pics/weather-cut.png" alt="Weather Dashboard Logo">
@@ -23,7 +26,7 @@
 
       <!-- Add Favorite Section -->
       <div class="add-city-section">
-        <label for="add-city">Add a city:</label>
+        <label for="add-city" style="font-size: 25px"; >Add a city:</label>
         <input type="text" id="add-city" placeholder="Enter city name">
         <button id="add-button">Add City</button>
       </div>

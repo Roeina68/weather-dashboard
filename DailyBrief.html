@@ -4,20 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather App</title>
-<link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+
 </head>
 <body>
   <main>
-    <nav class="navbar">
+    <div id="sidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()">×</a>
       <a href="index.html">Home</a>
       <a href="favorite.html">Favorite</a>
-      <a href="DailyBrief.html" >Daily Brief</a>
+      <a href="DailyBrief.html">Daily Brief</a>
       <span id="user-info"></span>
-    </nav>
+    </div>
+    <div id="openSidebar" class="openbtn" onclick="toggleNav()">☰</div>
     <!-- Input Section -->
     <div id="input-section">
-      <h1>Weather Forecast</h1>
-      <label for="city-input">Enter City:</label>
+      <img id="main-logo" src="pics/weather-cut.png" alt="Weather Dashboard Logo">
+      <h1>Welcome to DailyBrief</h1>
+      <div>
+      <p>Your perfect tool to know the weather in your city and get tailored advice for activities and clothing.</p>
+      <p>Whether you're planning a hike 🚶🏻‍♂️ or staying in 🏡</p>
+      <p>we provide all the details you need to make the best decision for your day.</p>
+      <p>Enter your city's name below and get a detailed weather forecast, including recommendations for what to wear, what to do, and even weather warnings. All in one place!</p>
+     </div>
+      <label for="city-input" style="font-size: 30px;">Enter City:</label>
       <input id="city-input" placeholder="Enter city name">
       <button id="get-advice">Get Forecast</button>
     </div>
