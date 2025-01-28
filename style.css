@@ -156,7 +156,7 @@ p {
     margin: 10px 0;
   }
   .navbar {
-    
+
     display: flex;
     justify-content: center;
     background: #4aa3df;
@@ -165,6 +165,16 @@ p {
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 1000;
+}
+
+#user-info {
+
+    display: flex;
+    background: #4aa3df;
+    top: 0;
+    left: 0;
+    width: 6%;
     z-index: 1000;
 }
 
