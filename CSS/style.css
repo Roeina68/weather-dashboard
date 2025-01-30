@@ -9,7 +9,7 @@ body, html {
 /* Background styling */
 body {
     /* Gradient from sky blue to light gray */
-    background-image: url('pics/weather-background.jpg');
+    background-image: url('../pics/weather-background.jpg');
     color: #333; /* Text color */
     display: flex;
     justify-content: center;
