@@ -175,16 +175,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (userName) {
     // Display the username if logged in
-    userInfo.innerHTML = `<span id="user-info">Welcome, ${userName}<button onclick="signOut()">Logout</button></span>`;
+    userInfo.innerHTML = `<span id="user-info">Welcome, ${userName} <button onclick="signOut()">Logout</button></span>`;
   } else {
     // Show the login button if not logged in
     userInfo.innerHTML = `<a href="javascript:void(0)" onclick="login()" >Login</a>`;
   }
 });
 
-<<<<<<< HEAD
 
-=======
+async function signOut() {
+  const accessToken = sessionStorage.getItem('access_token');
+
+  if (!accessToken) {
+    console.error("No access token found. User may already be logged out.");
+    return;
+  }
+
+  try {
+    const response = await fetch('https://19r0w8n9jc.execute-api.us-east-1.amazonaws.com/prod/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ accessToken }),
+    });
+
+    if (response.ok) {
+      console.log('User logged out successfully');
+      sessionStorage.clear();  //
+      window.location.href = '/';
+    } else {
+      console.error('Failed to log out');
+      const errorData = await response.json();
+      console.error("API Response:", errorData);
+    }
+  } catch (error) {
+    console.error('Error during logout:', error);
+  }
+}
+
+
+
 // פונקציה לפתיחת התפריט
 function openNav() {
   document.getElementById("sidebar").style.width = "250px";
@@ -200,7 +231,7 @@ let sidebarOpen = false;
 
 function toggleNav() {
   const sidebar = document.getElementById("sidebar");
-
+  
   if (sidebarOpen) {
     // אם התפריט פתוח, נסגור אותו
     sidebar.style.width = "0";
@@ -219,4 +250,3 @@ document.addEventListener("DOMContentLoaded", function() {
     menuButton.addEventListener('click', toggleNav);
   }
 });
->>>>>>> 1f479a2eddde5ca9b3b559b48065008179d076c7
