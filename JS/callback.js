@@ -87,7 +87,7 @@ function displayTokenData(params) {
 
 // Redirect to another page after processing tokens
 function redirectAfterProcessing() {
-    const targetPage = "index.html"; // Replace with the page you want to redirect to
+    const targetPage = "../index.html"; // Replace with the page you want to redirect to
     window.location.href = targetPage;
 }
 

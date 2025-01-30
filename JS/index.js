@@ -1,6 +1,7 @@
 const apiUrl = "https://api.weatherapi.com/v1/current.json";
 const apiKey = "?key=07ef2814216a40a5a1d133813243107";
 const outputElement = document.getElementById("weather-output");
+const IPINFO_TOKEN = "6e4f6292cad2b7"
 
 // Top cities mapping by country (ISO country code)
 const topCities = {
@@ -91,11 +92,14 @@ function displayWeather(data) {
   `;
 }
 
+
 async function getUserCountry() {
   try {
-    const response = await fetch("https://ip-api.com/json/"); // Use HTTPS
+    const response = await fetch(`https://ipinfo.io/json?token=${IPINFO_TOKEN}`);
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
     const data = await response.json();
-    return data.countryCode || "IL"; // Default to Israel if no country is found
+    return data.country || "IL"; // Default to Israel if no country is found
   } catch (error) {
     console.error("Error fetching location. Defaulting to Israel:", error);
     return "IL"; // Default to Israel
