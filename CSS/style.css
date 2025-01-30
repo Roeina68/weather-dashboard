@@ -155,7 +155,7 @@ p {
     height: 50px;
     margin: 10px 0;
   }
-/* Sidebar עיצוב */
+/* Sidebar */
 .sidebar {
     height: 100%;
     width: 0;
@@ -167,8 +167,8 @@ p {
     transition: 0.5s;
     padding-top: 80px;
     z-index: 1000;
-    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1); /* הוספת צללים לתפריט */
-    border-radius: 0 15px 15px 0; /* פינות מעוגלות */
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 0 15px 15px 0;
   }
   
   .sidebar a {
@@ -178,19 +178,19 @@ p {
     color: white;
     display: block;
     transition: 0.3s;
-    font-weight: 500; /* הדגשת הטקסט */
+    font-weight: 500;
   }
   
   .sidebar a:hover {
     background: #357ab7;
     border-radius: 5px;
-    color: #f0f0f0; /* שינוי צבע הטקסט כאשר מקבלים מעל */
+    color: #f0f0f0;
   }
   
   .sidebar .closebtn {
     position: absolute;
     top: 0;
-    right: 10px; /* מרווח קטן מהקצה */
+    right: 10px;
     font-size: 30px;
     color: white;
     cursor: pointer;
@@ -219,16 +219,15 @@ p {
   }
   
   .openbtn:focus {
-    outline: none; /* מניעת קו מסביב לכפתור בעת מגע */
+    outline: none;
   }
   
-  /* אנימציה להופעת התפריט */
   .sidebar.open {
-    width: 250px; /* גודל התפריט כאשר הוא פתוח */
+    width: 250px;
   }
   
   .sidebar a.active {
-    background-color: #357ab7; /* צבע רקע ייחודי עבור קישור פעיל */
+    background-color: #357ab7;
   }
   
   
@@ -256,8 +255,8 @@ p {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    max-height: 400px; /* גובה מקסימלי */
-    overflow-y: auto; /* גלילה פנימית */
+    max-height: 400px;
+    overflow-y: auto;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -278,40 +277,40 @@ p {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 .favorite-city-box.sunny {
-    background: linear-gradient(to bottom, #ffeb3b, #ffffff); /* צהוב שמשי */
+    background: linear-gradient(to bottom, #ffeb3b, #ffffff);
 }
 
 .favorite-city-box.rainy {
-    background: linear-gradient(to bottom, #2196f3, #ffffff); /* כחול גשום */
+    background: linear-gradient(to bottom, #2196f3, #ffffff);
 }
 
 .favorite-city-box.snowy {
-    background: linear-gradient(to bottom, #e0f7fa, #ffffff); /* תכלת מושלג */
+    background: linear-gradient(to bottom, #e0f7fa, #ffffff);
 }
 .favorite-city-box.partlycloudy {
-    background: linear-gradient(to bottom, #c9d3d4, #f9f4b3); /* תכלת מושלג */
+    background: linear-gradient(to bottom, #c9d3d4, #f9f4b3);
 }
 .favorite-city-box.default {
-    background: linear-gradient(to bottom, #f0f0f0, #ffffff); /* רקע ניטרלי */
+    background: linear-gradient(to bottom, #f0f0f0, #ffffff);
 }
 .favorite-city-box.partly-cloudy {
-    background: linear-gradient(to bottom, #d3d3d3, #fffcbb); /* אפור מעונן חלקית */
+    background: linear-gradient(to bottom, #d3d3d3, #fffcbb);
 }
 
 .favorite-city-box.cloudy {
-    background: linear-gradient(to bottom, #9e9e9e, #d6d6d6); /* אפור כהה למעונן */
+    background: linear-gradient(to bottom, #9e9e9e, #d6d6d6);
 }
 
 .favorite-city-box.thunderstorm {
-    background: linear-gradient(to bottom, #424242, #616161); /* אפור כהה לסערה */
+    background: linear-gradient(to bottom, #424242, #616161);
 }
 
 .favorite-city-box.foggy {
-    background: linear-gradient(to bottom, #b3c2c2, #f0f0f0); /* גוון ערפל */
+    background: linear-gradient(to bottom, #b3c2c2, #f0f0f0);
 }
 
 .favorite-city-box.windy {
-    background: linear-gradient(to bottom, #80c4ff, #ffffff); /* כחול לרוח חזקה */
+    background: linear-gradient(to bottom, #80c4ff, #ffffff);
 }
 
 
@@ -358,7 +357,7 @@ p {
   .favorite-city-box .remove-button:hover {
     background-color: #e60000;
   }
-  /* אנימציה להוספת עיר */
+
 .favorite-city-box {
     opacity: 0;
     animation: fadeIn 0.5s forwards;
@@ -444,20 +443,20 @@ p {
     padding: 20px;
     margin-top: 20px;
 }
-/* עיצוב רקע לכל זמן ביום */
+
 .morning {
-    background: linear-gradient(to left, #f3ea8a, #f7f7e6); /* צהוב רך לבוקר */
+    background: linear-gradient(to left, #f3ea8a, #f7f7e6);
 }
 
 .afternoon {
-    background: linear-gradient(to left, #f79b55, #f7cfbb); /* כתום לצהריים */
+    background: linear-gradient(to left, #f79b55, #f7cfbb);
 }
 
 .evening {
-    background: linear-gradient(to left, #596c81, #b8cde1); /* כחול כהה לערב */
+    background: linear-gradient(to left, #596c81, #b8cde1);
 }
 
-/* שמירת עיצוב התיבות */
+
 .forecast-time {
     padding: 15px;
     border-radius: 50px;
@@ -466,7 +465,7 @@ p {
     width: 95%;
     max-width: 600px;
     text-align: center;
-    transition: background-color 0.3s ease-in-out; /* הוספת אנימציה לרקע */
+    transition: background-color 0.3s ease-in-out;
 }
 
 

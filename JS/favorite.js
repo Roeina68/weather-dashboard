@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://93hal3ta95.execute-api.us-east-1.amazonaws.com/production"; // Replace with your deployed API Gateway URL
+const API_BASE_URL = "https://93hal3ta95.execute-api.us-east-1.amazonaws.com/production";
 
 // Reusable function to check session validity
 function checkSession() {
@@ -176,34 +176,28 @@ function login() {
   window.location.href = authUrl;
 }
 
-// פונקציה לפתיחת התפריט
 function openNav() {
   document.getElementById("sidebar").style.width = "250px";
 }
 
-// פונקציה לסגירת התפריט
 function closeNav() {
   document.getElementById("sidebar").style.width = "0";
 }
 
-// משתנה לניהול מצב התפריט
 let sidebarOpen = false;
 
 function toggleNav() {
   const sidebar = document.getElementById("sidebar");
   
   if (sidebarOpen) {
-    // אם התפריט פתוח, נסגור אותו
     sidebar.style.width = "0";
     sidebarOpen = false;
   } else {
-    // אם התפריט סגור, נפתח אותו
     sidebar.style.width = "250px";
     sidebarOpen = true;
   }
 }
 
-// דאג לטעון את הפונקציות הללו בכל דף שדרוש
 document.addEventListener("DOMContentLoaded", function() {
   const menuButton = document.querySelector('.menu-button');
   if (menuButton) {
