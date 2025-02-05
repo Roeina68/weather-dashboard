@@ -79,6 +79,22 @@ function fetchWeatherForCity(city) {
     });
 }
 
+function getWeatherClass(condition) {
+  condition = condition.toLowerCase();
+  if (condition.includes("sun")) {
+      return "sunny";
+  } else if (condition.includes("partly cloudy")) {
+      return "partly-cloudy";
+  } else if (condition.includes("cloud")) {
+      return "cloudy";
+  } else if (condition.includes("rain")) {
+      return "rainy";
+  } else if (condition.includes("snow")) {
+      return "snowy";
+  } else {
+      return "default";
+  }
+}
 // Render the favorites list
 function renderFavorites() {
   favoritesContainer.innerHTML = ""; // Clear existing list
@@ -88,12 +104,13 @@ function renderFavorites() {
         const temperature = data.current.temp_c;
         const description = data.current.condition.text;
         const conditionIcon = data.current.condition.icon;
+        const weatherClass = getWeatherClass(description);
 
         // Create a new city box
         const cityBox = document.createElement("div");
         cityBox.classList.add("favorite-city-box");
         cityBox.innerHTML = `
-          <div class="city-info">
+          <div class="city-info ${weatherClass}">
             <h3>${city}</h3>
             <p>Temperature: ${temperature}°C</p>
             <p>Condition: ${description} <img src="https:${conditionIcon}" alt="${description}" width="30"></p>
@@ -158,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (userName) {
     // If user is logged in, display the username
-    userInfo.innerHTML = `<span>Welcome, ${userName}</span>`;
+    userInfo.innerHTML = `<span id="user-info">Welcome, ${userName} <button onclick="signOut()">Logout</button></span>`;
   } else {
     // If no user is logged in, display the login button
     userInfo.innerHTML = `<a href="javascript:void(0)" onclick="login()">Login</a>`;

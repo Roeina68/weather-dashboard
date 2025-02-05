@@ -7,7 +7,7 @@ sns = boto3.client("sns", region_name="us-east-1")
 lambda_client = boto3.client("lambda", region_name="us-east-1")
 
 # Constants
-TABLE_NAME = "UserPreferences"  # Replace with your DynamoDB table name
+TABLE_NAME = "UserPreferences"
 SNS_TOPIC_ARN = "arn:aws:sns:us-east-1:412597762399:DailyBrief"
 WEATHER_API_FUNCTION_NAME = "getForecast"  # Replace with actual function name
 def lambda_handler(event, context):
