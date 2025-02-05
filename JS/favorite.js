@@ -193,6 +193,38 @@ function login() {
   window.location.href = authUrl;
 }
 
+
+async function signOut() {
+  const accessToken = sessionStorage.getItem('access_token');
+
+  if (!accessToken) {
+    console.error("No access token found. User may already be logged out.");
+    return;
+  }
+
+  try {
+    const response = await fetch('https://19r0w8n9jc.execute-api.us-east-1.amazonaws.com/prod/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ accessToken }),
+    });
+
+    if (response.ok) {
+      console.log('User logged out successfully');
+      sessionStorage.clear();  //
+      window.location.href = '/';
+    } else {
+      console.error('Failed to log out');
+      const errorData = await response.json();
+      console.error("API Response:", errorData);
+    }
+  } catch (error) {
+    console.error('Error during logout:', error);
+  }
+}
+
 function openNav() {
   document.getElementById("sidebar").style.width = "250px";
 }
@@ -221,3 +253,4 @@ document.addEventListener("DOMContentLoaded", function() {
     menuButton.addEventListener('click', toggleNav);
   }
 });
+
