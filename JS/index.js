@@ -3,7 +3,7 @@ const apiKey = "?key=07ef2814216a40a5a1d133813243107";
 const outputElement = document.getElementById("weather-output");
 const IPINFO_TOKEN = "6e4f6292cad2b7"
 
-// Top cities mapping by country (ISO country code)
+// Mapping of top cities by country
 const topCities = {
   IL: ["Tel Aviv", "Jerusalem", "Haifa", "Beersheba"],
   US: ["New York", "Los Angeles", "Chicago", "Houston"],
@@ -27,7 +27,7 @@ const topCities = {
   AR: ["Buenos Aires", "Córdoba", "Rosario", "Mendoza"]
 };
 
-// On page load, display top cities of the user's country
+// Displays weather for top cities in the user's country
 (async function displayDefaultCities() {
   const country = await getUserCountry();
   const cities = topCities[country] || topCities["IL"]; // Default to Israel if country not found
@@ -35,7 +35,7 @@ const topCities = {
   displayTopCitiesWeather(cities);
 })();
 
-// Handle user search
+// Handles user search input and fetches weather data
 document.getElementById("submit").onclick = async function apiCall() {
   const userInput = document.getElementById("user-input").value.trim();
 
@@ -44,12 +44,12 @@ document.getElementById("submit").onclick = async function apiCall() {
     return;
   }
 
-  // Replace the default cities with the searched city
   outputElement.innerHTML = ""; // Clear the output
   outputElement.classList.add("single-result"); // Add the single-result class
   await fetchWeather(userInput); // Display the searched city's weather
 };
 
+// Fetches weather data from the API
 async function fetchWeather(city) {
   try {
     const response = await fetch(
@@ -67,6 +67,7 @@ async function fetchWeather(city) {
 }
 
 
+// Displays weather data for multiple cities
 async function displayTopCitiesWeather(cities) {
   outputElement.innerHTML = ""; // Clear any existing content
   outputElement.classList.remove("single-result"); // Remove the single-result class for multiple cities
@@ -75,6 +76,8 @@ async function displayTopCitiesWeather(cities) {
   }
 }
 
+
+// Updates the UI with weather data
 function displayWeather(data) {
   const { temp_c: temperature, condition, humidity, wind_kph: windSpeed } = data.current;
   const { name: location } = data.location;
@@ -93,6 +96,7 @@ function displayWeather(data) {
 }
 
 
+// Determines the user's country based on IP
 async function getUserCountry() {
   try {
     const response = await fetch(`https://ipinfo.io/json?token=${IPINFO_TOKEN}`);
@@ -107,6 +111,7 @@ async function getUserCountry() {
 }
 
 
+// Handles API response errors
 function handleResponseError(response) {
   if (response.status === 400) {
     throw new Error("Bad request");
@@ -121,6 +126,7 @@ function handleResponseError(response) {
 }
 
 
+// Handles user authentication
 function login() {
   const authUrl = `${config.domain}/login?` +
     `response_type=token` +
@@ -128,10 +134,12 @@ function login() {
     `&redirect_uri=${encodeURIComponent(config.redirectUri)}` +
     `&scope=openid+aws.cognito.signin.user.admin`;
 
-  console.log("Auth URL:", authUrl); // Debugging
+  console.log("Auth URL:", authUrl);
   window.location.href = authUrl;
 }
 
+
+// Updates the clock display in real-time
 function updateClock() {
   const clockElement = document.getElementById('clock');
   const now = new Date();
@@ -158,6 +166,8 @@ function getWeatherClass(condition) {
   }
 }
 
+
+// Determines the CSS class based on weather condition
 function displayWeather(data) {
   const condition = data.current.condition.text;
   const weatherClass = getWeatherClass(condition);
@@ -187,6 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+// Manages user authentication display
 async function signOut() {
   const accessToken = sessionStorage.getItem('access_token');
 
@@ -219,35 +230,29 @@ async function signOut() {
 }
 
 
-
-// פונקציה לפתיחת התפריט
+// Sidebar navigation control
 function openNav() {
   document.getElementById("sidebar").style.width = "250px";
 }
 
-// פונקציה לסגירת התפריט
 function closeNav() {
   document.getElementById("sidebar").style.width = "0";
 }
 
-// משתנה לניהול מצב התפריט
 let sidebarOpen = false;
 
 function toggleNav() {
   const sidebar = document.getElementById("sidebar");
   
   if (sidebarOpen) {
-    // אם התפריט פתוח, נסגור אותו
     sidebar.style.width = "0";
     sidebarOpen = false;
   } else {
-    // אם התפריט סגור, נפתח אותו
     sidebar.style.width = "250px";
     sidebarOpen = true;
   }
 }
 
-// דאג לטעון את הפונקציות הללו בכל דף שדרוש
 document.addEventListener("DOMContentLoaded", function() {
   const menuButton = document.querySelector('.menu-button');
   if (menuButton) {

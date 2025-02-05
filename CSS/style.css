@@ -446,7 +446,7 @@ p {
     text-align: center;
     flex-wrap: wrap;
     gap: 20px;
-    max-height: 700px; /* גובה מקסימלי */
+    max-height: 700px;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;

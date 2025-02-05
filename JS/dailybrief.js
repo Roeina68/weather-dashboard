@@ -8,6 +8,7 @@ document.getElementById("back-button").onclick = () => {
   inputSection.style.display = "block";
 };
 
+// Fetches weather forecast data from the API
 function getForecast() {
   const city = document.getElementById("city-input").value.trim().toLowerCase();
   const days = 1;
@@ -17,9 +18,9 @@ function getForecast() {
     return;
   }
 
-  // Build the API URL
+
   const lambdaUrl = `${apiUrl}?city=${encodeURIComponent(city)}&days=${days}`;
-  console.log(`Requesting weather for: ${lambdaUrl}`); // Debugging log
+  console.log(`Requesting weather for: ${lambdaUrl}`);
 
   fetch(lambdaUrl)
     .then(response => {
@@ -30,8 +31,8 @@ function getForecast() {
       return response.json();
     })
     .then(data => {
-      console.log("API response:", data); // Debugging log
-      const parsedData = JSON.parse(data.body); // Parse the `body` field of the response
+      console.log("API response:", data);
+      const parsedData = JSON.parse(data.body);
       if (!parsedData.forecast || !parsedData.forecast.forecastday) {
         throw new Error("Invalid data format from Lambda");
       }
@@ -44,15 +45,13 @@ function getForecast() {
     });
 }
 
+// Updates the UI with forecast data
 function updateForecast(forecast) {
-  // Extract general weather data
   const dailyCondition = forecast.day.condition.text.toLowerCase();
   const dailyTemp = forecast.day.avgtemp_c;
 
-  // Update general recommendations
   updateGeneralRecommendations(dailyTemp, dailyCondition);
 
-  // Update forecasts for morning, afternoon, and evening
   const morning = forecast.hour[8]; // 8 AM
   const afternoon = forecast.hour[14]; // 2 PM
   const evening = forecast.hour[20]; // 8 PM
@@ -64,6 +63,8 @@ function updateForecast(forecast) {
   inputSection.style.display = "none";
   forecastSection.style.display = "block";
 }
+
+// Provides clothing and activity recommendations based on weather conditions
 function updateGeneralRecommendations(temp, condition) {
   const recommendationsElement = document.getElementById("general-recommendations");
 
@@ -165,12 +166,10 @@ function updateForecastTime(time, data) {
 
   timeContainer.innerHTML = recommendations;
 
-  // הוספת המחלקה המתאימה לרקע
   forecastBox.classList.remove("morning", "afternoon", "evening");
   forecastBox.classList.add(getTimeClass(time));
 }
 
-// פונקציה שמחזירה את המחלקה המתאימה לרקע
 function getTimeClass(time) {
   switch (time) {
       case "morning":
@@ -241,34 +240,29 @@ async function signOut() {
   }
 }
 
-  // פונקציה לפתיחת התפריט
+
 function openNav() {
   document.getElementById("sidebar").style.width = "250px";
 }
 
-// פונקציה לסגירת התפריט
 function closeNav() {
   document.getElementById("sidebar").style.width = "0";
 }
 
-// משתנה לניהול מצב התפריט
 let sidebarOpen = false;
 
 function toggleNav() {
   const sidebar = document.getElementById("sidebar");
   
   if (sidebarOpen) {
-    // אם התפריט פתוח, נסגור אותו
     sidebar.style.width = "0";
     sidebarOpen = false;
   } else {
-    // אם התפריט סגור, נפתח אותו
     sidebar.style.width = "250px";
     sidebarOpen = true;
   }
 }
 
-// דאג לטעון את הפונקציות הללו בכל דף שדרוש
 document.addEventListener("DOMContentLoaded", function() {
   const menuButton = document.querySelector('.menu-button');
   if (menuButton) {
