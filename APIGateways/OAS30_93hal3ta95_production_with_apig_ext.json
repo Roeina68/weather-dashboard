@@ -1,0 +1,60 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "dynamoDB",
+    "version" : "2025-01-26 21:27:34UTC"
+  },
+  "servers" : [ {
+    "url" : "https://93hal3ta95.execute-api.us-east-1.amazonaws.com/{basePath}",
+    "variables" : {
+      "basePath" : {
+        "default" : "production"
+      }
+    }
+  } ],
+  "paths" : {
+    "/GetUserPreferences" : {
+      "get" : {
+        "responses" : {
+          "default" : {
+            "description" : "Default response for GET /GetUserPreferences"
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "payloadFormatVersion" : "2.0",
+          "type" : "aws_proxy",
+          "httpMethod" : "POST",
+          "uri" : "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:412597762399:function:GetUserPreferences/invocations",
+          "connectionType" : "INTERNET"
+        }
+      }
+    },
+    "/SaveUserPreferences" : {
+      "post" : {
+        "responses" : {
+          "default" : {
+            "description" : "Default response for POST /SaveUserPreferences"
+          }
+        },
+        "x-amazon-apigateway-integration" : {
+          "requestParameters" : {
+            "overwrite:header.Content-Type" : "application/json"
+          },
+          "payloadFormatVersion" : "2.0",
+          "type" : "aws_proxy",
+          "httpMethod" : "POST",
+          "uri" : "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:412597762399:function:SaveUserPreferences/invocations",
+          "connectionType" : "INTERNET"
+        }
+      }
+    }
+  },
+  "x-amazon-apigateway-cors" : {
+    "allowMethods" : [ "GET", "OPTIONS", "POST" ],
+    "allowHeaders" : [ "content-type" ],
+    "maxAge" : 3600,
+    "allowCredentials" : true,
+    "allowOrigins" : [ "https://staging.d1it4d6gxtu9ln.amplifyapp.com" ]
+  },
+  "x-amazon-apigateway-importexport-version" : "1.0"
+}

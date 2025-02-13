@@ -20,32 +20,144 @@ The Weather App provides real-time weather updates for cities worldwide. Users c
 - **AWS Lambda & API Gateway**: Backend services for data processing.
 - **Session Storage**: Manages user authentication states.
 
-## Installation & Usage
-### Prerequisites
-- A web browser (Chrome, Firefox, Edge, etc.)
-- Internet connection
+Setup Instructions
 
-### Steps
-1. Clone or download the project files.
-2. Open `index.html` in a browser.
-3. Allow location access for country-based city suggestions.
-4. Enter a city name and click "Submit" to fetch weather details.
-5. Use the sidebar navigation to access additional features.
-6. Login to personalize preferences (if required).
+Prerequisites
 
-## API Usage
-### Fetch Weather Data
-```
-GET https://vydb4aacbj.execute-api.us-east-1.amazonaws.com/prod/weather?city={CITY_NAME}
-```
-### Get User Location
-```
-GET https://ipinfo.io/json?token={IPINFO_TOKEN}
-```
-### User Authentication
-```
-POST https://19r0w8n9jc.execute-api.us-east-1.amazonaws.com/prod/logout
-```
+An active AWS account.
+
+Permissions to create S3, Lambda, API Gateway, DynamoDB, and SNS resources.
+
+1. Uploading Frontend Files to S3
+
+Sign in to the AWS Console.
+
+Navigate to the AWS S3 Console.
+
+Click Create bucket and configure the following:
+
+Bucket name: weather-dashboard
+
+Select your preferred Region.
+
+Leave other settings as default and click Create bucket.
+
+Upload all HTML, CSS, and JavaScript files to the bucket. Copy the entire weather-dashboard folder into the bucket while maintaining the directory structure. Ensure that index.html is outside the HTML folder, in its correct location.
+
+Go to the Permissions tab:
+
+Under Block public access settings, disable all restrictions and click Save.
+
+Under Bucket Policy, add the necessary policy to allow public access.
+
+Copy the Bucket URL from Static website hosting for later use.
+
+2. Creating an Amplify Application and Deploying the Website (S3 Hosting)
+
+Sign in to the AWS Console.
+
+Navigate to the AWS Amplify Console.
+
+Click New App → Deploy without Git.
+
+Connect to S3:
+
+Name the application weatherApp.
+
+Select Amazon S3 and choose the previously created bucket.
+
+Click Save and Deploy.
+
+Once deployed, Amplify will provide a unique URL where the website is hosted.
+
+3. Creating Lambda Functions
+
+Navigate to the AWS Lambda Console.
+
+Click Create function.
+
+Select Author from scratch.
+
+Name the function according to the provided Lambda functions in the lambdas folder (e.g., fetchWeather).
+
+Choose the appropriate Runtime:
+
+Python: python3.9
+
+JavaScript: Use the latest Node.js version.
+
+Click Create function.
+
+Upload the function code:
+
+If the folder contains node_modules or dependencies, upload it as a .zip file.
+
+If there are no external dependencies, copy the function's code directly into the AWS editor (under the Code tab).
+
+Under Permissions, ensure the function is assigned a role with sufficient permissions (use labRole).
+
+Click Deploy.
+
+Repeat these steps for all Lambda functions.
+
+4. Linking Lambda Functions to API Gateway
+
+For REST APIs (Logout, Weather Forecast API, weather-api):
+
+Navigate to the AWS API Gateway Console.
+
+Click Create API → REST API → Import.
+
+Click Choose file and select the appropriate Swagger file from the APIGateways folder.
+
+Under API endpoint type, select Edge-optimized.
+
+Click Create API.
+
+Go to the Stages tab, click Create, enter prod, and click Deploy.
+
+For HTTP API (DynamoDB API):
+
+Navigate to the AWS API Gateway Console.
+
+Click Create API → HTTP API → Import.
+
+Click Select an OpenAPI3 definition file.
+
+Choose the appropriate OpenAPI file (OAS... file from APIGateways).
+
+Click Create API.
+
+Click Deploy.
+
+5. Configuring DynamoDB
+
+Navigate to the AWS DynamoDB Console.
+
+Click Create Table.
+
+Name the table UserPreferences.
+
+Set the Partition Key to userid (Type: String).
+
+Leave other settings as default and click Create Table.
+
+6. Configuring SNS (User Notifications)
+
+Navigate to the AWS SNS Console.
+
+Click Create topic.
+
+Select Standard and name the topic DailyBrief.
+
+7. Final Checks and Testing
+
+Ensure all services are properly linked.
+
+Test API requests via API Gateway to verify responses.
+
+Confirm the latest deployment is active in Amplify by redeploying:
+(AWS Amplify -> weatherApp -> Deploy updates -> Amazon S3 -> Save and Deploy)
 
 ## File Structure
 ```

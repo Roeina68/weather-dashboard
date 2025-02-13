@@ -1,6 +1,7 @@
 const apiUrl = "https://6qflo080id.execute-api.us-east-1.amazonaws.com/prod/weather"; // Replace with your Lambda API Gateway URL
 const inputSection = document.getElementById("input-section");
 const forecastSection = document.getElementById("forecast-section");
+const logoutAPI = 'https://19r0w8n9jc.execute-api.us-east-1.amazonaws.com/prod/logout'
 
 document.getElementById("get-advice").onclick = getForecast;
 document.getElementById("back-button").onclick = () => {
@@ -218,7 +219,7 @@ async function signOut() {
   }
 
   try {
-    const response = await fetch('https://19r0w8n9jc.execute-api.us-east-1.amazonaws.com/prod/logout', {
+    const response = await fetch(logoutAPI, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,5 +1,4 @@
-const apiUrl = "https://api.weatherapi.com/v1/current.json";
-const apiKey = "?key=07ef2814216a40a5a1d133813243107";
+const weatherAPI = "https://vydb4aacbj.execute-api.us-east-1.amazonaws.com/prod/weather"
 const outputElement = document.getElementById("weather-output");
 const IPINFO_TOKEN = "6e4f6292cad2b7"
 
@@ -51,9 +50,10 @@ document.getElementById("submit").onclick = async function apiCall() {
 
 // Fetches weather data from the API
 async function fetchWeather(city) {
+  const fullURL = `${weatherAPI}?city=${encodeURIComponent(city)}`;
   try {
     const response = await fetch(
-      `https://vydb4aacbj.execute-api.us-east-1.amazonaws.com/prod/weather?city=${encodeURIComponent(city)}`
+      fullURL
     );
     if (!response.ok) {
       throw new Error("Failed to fetch weather data");
